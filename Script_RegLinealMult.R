@@ -17,8 +17,8 @@ TrainData_Crimes = read.csv("TrainDataDYSJTPFA.csv", header = TRUE, sep = ",")
 # Revisar la correlacion entre pares de variables
 correlacion = cor(TrainData_Crimes)
 
-# b)
-# Encontrar una funcion lineal que describa el numero de crimenes en funcion de todas las otras variables
+
+# funcion lineal con el numero de crimenes en funcion de la variable tasa de empleo
 Modelo_RegresionLinealMult = lm(Crimecount ~ Employment_Rate, data=TrainData_Crimes)
 
 # Resumen del modelo de regresion lineal multiple
@@ -29,12 +29,11 @@ coeff= coef(Modelo_RegresionLinealMult)
 coeff
 
 # Hacer pruebas
-# Leer los datos de prueba (datos de crimenes y empleo para el año 2015)
+# Leer los datos de prueba (datos de crimenes y empleo para el ano 2015)
 TestData_Crimes = read.csv("TestDataDYSJTPFA.csv", header = TRUE, sep = ",")
 
 
 # Predecir el numero de crimenes para el año 2015 basado en el modelo, usando los datos de prueba
-
 predicciones_multiple_2015<-predict(Modelo_RegresionLinealMult, TestData_Crimes)
 
 # Transformar el vector de prediccion en un data frame
@@ -47,7 +46,7 @@ df_predicciones_multiple$real_2015<-(TestData_Crimes$Crimecount)
 plot(df_predicciones_multiple$real_2015, df_predicciones_multiple$predicciones_multiple_2015, xlab="Real", ylab="Prediccion", col="red")+ abline(1,1, col="green")
 
 # Evaluar performance - Calcular el error usando funciones de la libreria hydroGOF
-library (zoo)
+# library (zoo)
 library (hydroGOF)
 
 p <- predicciones_multiple_2015         # Predicciones numero de crimenes 2015 por mes
